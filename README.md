@@ -7,6 +7,7 @@ Service Robot with AI and manual control
 
 #### Arm control
 <img src="https://user-images.githubusercontent.com/52350704/214926567-7d1d6911-a563-40ec-a06a-15c9a7ba6efa.jpg" width="300" height="500">
+
 ##
 ### Arduino Code 
 mobile-Code.ino
