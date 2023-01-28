@@ -7,7 +7,7 @@
 #include <SoftwareSerial.h>
 #include <AccelStepper.h>
 #include <Servo.h>
-
+// defines servos
 Servo servo01;
 Servo servo02;
 Servo servo03;
@@ -15,17 +15,32 @@ Servo servo04;
 Servo servo05;
 Servo servo06;
 
+// defines enable for motor driver
+// right
+#define in11 D0
+#define in12 D1
+#define in13 D2
+#define in14 D3
+// left
+#define in21 D4
+#define in22 D5
+#define in23 D6
+#define in24 D7
+
+
 SoftwareSerial Bluetooth(A0, 38); // Arduino(RX, TX) - HC-05 Bluetooth (TX, RX)
 
+/*
 // Define the stepper motors and the pins the will use
 AccelStepper LeftBackWheel(1, 42, 43);   // (Type:driver, STEP, DIR) - Stepper1
 AccelStepper LeftFrontWheel(1, 40, 41);  // Stepper2
 AccelStepper RightBackWheel(1, 44, 45);  // Stepper3
 AccelStepper RightFrontWheel(1, 46, 47); // Stepper4
+*/
 
-#define led 14
+#define led D8
 
-int wheelSpeed = 1500;
+int wheelSpeed = 255;
 
 int lbw[50], lfw[50], rbw[50], rfw[50]; // arrays for storing positions/steps
 
@@ -38,24 +53,37 @@ int dataIn;
 int m = 0;
 
 void setup() {
+  pinMode(in11, OUTPUT);
+  pinMode(in12, OUTPUT);
+  pinMode(in13, OUTPUT);
+  pinMode(in14, OUTPUT);
+
+  pinMode(in21, OUTPUT);
+  pinMode(in22, OUTPUT);
+  pinMode(in23, OUTPUT);
+  pinMode(in24, OUTPUT);
+
+  /*
   // Set initial seed values for the steppers
   LeftFrontWheel.setMaxSpeed(3000);
   LeftBackWheel.setMaxSpeed(3000);
   RightFrontWheel.setMaxSpeed(3000);
   RightBackWheel.setMaxSpeed(3000);
+  */
+
   pinMode(led, OUTPUT);
-  servo01.attach(5);
-  servo02.attach(6);
-  servo03.attach(7);
-  servo04.attach(8);
-  servo05.attach(9);
-  servo06.attach(10);
+  servo01.attach(11); // base 360
+  servo02.attach(12);
+  servo03.attach(13);
+  servo04.attach(14);
+  servo05.attach(15);
+  servo06.attach(16);
   Bluetooth.begin(38400); // Default baud rate of the Bluetooth module
   Bluetooth.setTimeout(5);
   delay(20);
   Serial.begin(38400);
   // Move robot arm to initial position
-  servo1PPos = 90;
+  servo1PPos = 180;
   servo01.write(servo1PPos);
   servo2PPos = 100;
   servo02.write(servo2PPos);
@@ -167,16 +195,16 @@ void loop() {
       moveBackward();
     }
     if (m == 3) {
-      moveRightForward();
+      moveRight();
     }
     if (m == 1) {
-      moveLeftForward();
+      moveLeft();
     }
     if (m == 8) {
-      moveRightBackward();
+      moveRight();
     }
     if (m == 6) {
-      moveLeftBackward();
+      moveLeft();
     }
     if (m == 9) {
       rotateLeft();
@@ -202,6 +230,10 @@ void loop() {
       }
       servo01.write(servo1PPos);
       servo1PPos++;
+      // for protection servo
+      /*if (servo1PPos>=359){
+        break;
+      }*/
       delay(speedDelay);
     }
     // Move servo 1 in negative direction
@@ -307,7 +339,7 @@ void loop() {
     // If button "SAVE" is pressed
     if (m == 12) {
       //if it's initial save, set the steppers position to 0
-      if (indexx == 0) {
+        /*if (indexx == 0) {
         LeftBackWheel.setCurrentPosition(0);
         LeftFrontWheel.setCurrentPosition(0);
         RightBackWheel.setCurrentPosition(0);
@@ -317,7 +349,7 @@ void loop() {
       lfw[indexx] = LeftFrontWheel.currentPosition();
       rbw[indexx] = RightBackWheel.currentPosition();
       rfw[indexx] = RightFrontWheel.currentPosition();
-
+        */
       servo01SP[indexx] = servo1PPos;  // save position into the array
       servo02SP[indexx] = servo2PPos;
       servo03SP[indexx] = servo3PPos;
@@ -349,11 +381,12 @@ void loop() {
       }
     }
   }
+  /*
   LeftFrontWheel.runSpeed();
   LeftBackWheel.runSpeed();
   RightFrontWheel.runSpeed();
   RightBackWheel.runSpeed();
-
+  
   // Monitor the battery voltage
   int sensorValue = analogRead(A0);
   float voltage = sensorValue * (5.0 / 1023.00) * 3; // Convert the reading values from 5v to suitable 12V i
@@ -365,19 +398,33 @@ void loop() {
   else {
     digitalWrite(led, LOW);
   }
+  */
 }
 void moveForward() {
-  LeftFrontWheel.setSpeed(wheelSpeed);
-  LeftBackWheel.setSpeed(wheelSpeed);
-  RightFrontWheel.setSpeed(wheelSpeed);
-  RightBackWheel.setSpeed(wheelSpeed);
+// right
+  digitalWrite(in11, wheelSpeed);
+  digitalWrite(in12, LOW);
+  digitalWrite(in13, wheelSpeed);
+  digitalWrite(in14, LOW);
+// left
+  digitalWrite(in21, wheelSpeed);
+  digitalWrite(in22, LOW);
+  digitalWrite(in23, wheelSpeed);
+  digitalWrite(in24, LOW);
 }
 void moveBackward() {
-  LeftFrontWheel.setSpeed(-wheelSpeed);
-  LeftBackWheel.setSpeed(-wheelSpeed);
-  RightFrontWheel.setSpeed(-wheelSpeed);
-  RightBackWheel.setSpeed(-wheelSpeed);
-}/*
+// right
+  digitalWrite(in11, LOW);
+  digitalWrite(in12, wheelSpeed);
+  digitalWrite(in13, LOW);
+  digitalWrite(in14, wheelSpeed);
+// left
+  digitalWrite(in21, LOW);
+  digitalWrite(in22, wheelSpeed);
+  digitalWrite(in23, LOW);
+  digitalWrite(in24, wheelSpeed);
+}
+/*
 void moveSidewaysRight() {
   LeftFrontWheel.setSpeed(wheelSpeed);
   LeftBackWheel.setSpeed(-wheelSpeed);
@@ -391,46 +438,65 @@ void moveSidewaysLeft() {
   RightBackWheel.setSpeed(-wheelSpeed);
 }*/
 void rotateLeft() {
-  LeftFrontWheel.setSpeed(-wheelSpeed);
-  LeftBackWheel.setSpeed(-wheelSpeed);
-  RightFrontWheel.setSpeed(wheelSpeed);
-  RightBackWheel.setSpeed(wheelSpeed);
+// right
+  digitalWrite(in11, wheelSpeed);
+  digitalWrite(in12, LOW);
+  digitalWrite(in13, wheelSpeed);
+  digitalWrite(in14, LOW);
+// left
+  digitalWrite(in21, LOW);
+  digitalWrite(in22, wheelSpeed);
+  digitalWrite(in23, LOW);
+  digitalWrite(in24, wheelSpeed);
 }
 void rotateRight() {
-  LeftFrontWheel.setSpeed(wheelSpeed);
-  LeftBackWheel.setSpeed(wheelSpeed);
-  RightFrontWheel.setSpeed(-wheelSpeed);
-  RightBackWheel.setSpeed(-wheelSpeed);
+// right
+  digitalWrite(in11, LOW);
+  digitalWrite(in12, wheelSpeed);
+  digitalWrite(in13, LOW);
+  digitalWrite(in14, wheelSpeed);
+// left
+  digitalWrite(in21, wheelSpeed);
+  digitalWrite(in22, LOW);
+  digitalWrite(in23, wheelSpeed);
+  digitalWrite(in24, LOW);
 }
-void moveRightForward() {
-  LeftFrontWheel.setSpeed(wheelSpeed);
-  LeftBackWheel.setSpeed(0);
-  RightFrontWheel.setSpeed(0);
-  RightBackWheel.setSpeed(wheelSpeed);
+void moveRight() {
+// right
+  digitalWrite(in11, LOW);
+  digitalWrite(in12, LOW);
+  digitalWrite(in13, LOW);
+  digitalWrite(in14, LOW);
+// left
+  digitalWrite(in21, wheelSpeed);
+  digitalWrite(in22, LOW);
+  digitalWrite(in23, wheelSpeed);
+  digitalWrite(in24, LOW);
 }
-void moveRightBackward() {
-  LeftFrontWheel.setSpeed(0);
-  LeftBackWheel.setSpeed(-wheelSpeed);
-  RightFrontWheel.setSpeed(-wheelSpeed);
-  RightBackWheel.setSpeed(0);
+void moveLeft() {
+// right
+  digitalWrite(in11, wheelSpeed);
+  digitalWrite(in12, LOW);
+  digitalWrite(in13, wheelSpeed);
+  digitalWrite(in14, LOW);
+// left
+  digitalWrite(in21, LOW);
+  digitalWrite(in22, LOW);
+  digitalWrite(in23, LOW);
+  digitalWrite(in24, LOW);
 }
-void moveLeftForward() {
-  LeftFrontWheel.setSpeed(0);
-  LeftBackWheel.setSpeed(wheelSpeed);
-  RightFrontWheel.setSpeed(wheelSpeed);
-  RightBackWheel.setSpeed(0);
-}
-void moveLeftBackward() {
-  LeftFrontWheel.setSpeed(-wheelSpeed);
-  LeftBackWheel.setSpeed(0);
-  RightFrontWheel.setSpeed(0);
-  RightBackWheel.setSpeed(-wheelSpeed);
-}
+
 void stopMoving() {
-  LeftFrontWheel.setSpeed(0);
-  LeftBackWheel.setSpeed(0);
-  RightFrontWheel.setSpeed(0);
-  RightBackWheel.setSpeed(0);
+// right
+  digitalWrite(in11, LOW);
+  digitalWrite(in12, LOW);
+  digitalWrite(in13, LOW);
+  digitalWrite(in14, LOW);
+// left
+  digitalWrite(in21, LOW);
+  digitalWrite(in22, LOW);
+  digitalWrite(in23, LOW);
+  digitalWrite(in24, LOW);
 }
 
 // Automatic mode custom function - run the saved steps
@@ -459,6 +525,7 @@ void runSteps() {
           dataIn = 14;
         }
       }
+      /*
       LeftFrontWheel.moveTo(lfw[i]);
       LeftFrontWheel.setSpeed(wheelSpeed);
       LeftBackWheel.moveTo(lbw[i]);
@@ -473,7 +540,7 @@ void runSteps() {
         LeftBackWheel.runSpeedToPosition();
         RightFrontWheel.runSpeedToPosition();
         RightBackWheel.runSpeedToPosition();
-      }
+      }*/
       // Servo 1
       if (servo01SP[i] == servo01SP[i + 1]) {
       }
