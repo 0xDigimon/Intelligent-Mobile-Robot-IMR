@@ -4,9 +4,19 @@
        by OxDigimon
 */
 
-#include <SoftwareSerial.h>
+//#include <SoftwareSerial.h>
 #include <AccelStepper.h>
 #include <Servo.h>
+#include "BluetoothSerial.h"
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+#if !defined(CONFIG_BT_SPP_ENABLED)
+#error Serial Bluetooth not available or not enabled. It is only available for the ESP32 chip.
+#endif
+BluetoothSerial Bluetooth;  
 // defines servos
 Servo servo01;
 Servo servo02;
@@ -28,7 +38,7 @@ Servo servo06;
 #define in24 D7
 
 
-SoftwareSerial Bluetooth(A0, 38); // Arduino(RX, TX) - HC-05 Bluetooth (TX, RX)
+// SoftwareSerial Bluetooth(A0, 38); // Arduino(RX, TX) - HC-05 Bluetooth (TX, RX)
 
 /*
 // Define the stepper motors and the pins the will use
