@@ -1,6 +1,7 @@
 # Mobile-Robot
 Service Robot with AI and manual control
 ##
+## Manual Control
 ### Mobile-APP
 #### car control
 <img src="https://user-images.githubusercontent.com/52350704/214926533-3e154dce-b866-44d8-8103-4e35d6ff665c.jpg" width="300" height="700">
@@ -10,4 +11,4 @@ Service Robot with AI and manual control
 
 ##
 ### Arduino Code 
-mobile-Code.ino
+mobile-Code/mobile-Code.ino
