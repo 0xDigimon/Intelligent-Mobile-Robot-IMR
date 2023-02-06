@@ -194,7 +194,8 @@ void loop() {
           bluesignal = Bluetooth.read();
         }
         servo2.write(servo2PPos);
-        servo3.write(servo2PPos);
+        servo3.write(servo3PPos);
+        servo3PPos++;
         servo2PPos--;
         delay(speedDelay);
       }
@@ -203,8 +204,8 @@ void loop() {
           bluesignal = Bluetooth.read();
         }
         servo2.write(servo2PPos);
-        servo3.write(servo2PPos);
-
+        servo3.write(servo3PPos);
+        servo3PPos--;
         servo2PPos++;
         delay(speedDelay);
       }
