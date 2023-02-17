@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def get_pioneer_pose(data):
     rospy.loginfo("I heared {}".format((data.theta*(180/np.pi))))
-    plt.plot(data.x,data.y,marker=(4,1,data.theta*(180/np.pi)-90),markersize=20,linestyle='None',color='green')
+    plt.plot(data.x,data.y,marker=(4,1,data.theta*(180/np.pi)-90),markersize=20,linestyle='None',color='red')
     plt.axis('equal')
     plt.draw()
     plt.pause(0.01)
