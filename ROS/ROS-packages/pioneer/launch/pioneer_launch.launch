@@ -1,7 +1,0 @@
-<launch>
-
-    <node name="turtlesim_sim" pkg="turtlesim" type="turtlesim_node"/>
-    <node name="turtlesim_key" pkg="turtlesim" type="turtle_teleop_key"/>
-    <node name="read_loc_pioneer" pkg="pioneer" type="read_loc_pioneer.py" output="screen"/>
-
-</launch>
