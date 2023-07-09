@@ -14,7 +14,7 @@ You can read the full tutorial on how to build your Autonomous car on [our websi
 - servo motors (for your arm)
 - Step Down module 5v 3A
 - MPU IMU 6050
-- Battery
+- Batteries
 ####  Software 
 - Ubuntu 18.4 [here](http://releases.ubuntu.com/18.04/ubuntu-18.04.6-desktop-amd64.iso).
 - ROS Melodic
@@ -27,7 +27,9 @@ make sure you clone the repo from a melodic branch or any alternative branch men
 - Install Arduino use Arduino in my Repo
 - Create workSpace [follow these steps](http://wiki.ros.org/catkin/Tutorials/create_a_workspace)
 - Install Kinect driver
-- use
+- finally use my workspace 
+##### Install Arduino 
+copied files in from my Repo to the home directory or install Arduino from the official website and [follow these steps](http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup) to install libraries make sure you install the Rosserial library correctly you can compare it with the one in my files 
 ##### Install Kinect v2
 got to [libfreenect2](https://github.com/OpenKinect/libfreenect2.git) and cloned the repo in home
 ```
@@ -54,5 +56,5 @@ sudo cp ../platform/linux/udev/90-kinect2.rules /etc/udev/rules.d/
 ./bin/Protonect # to test your kinect
 ```
 then install <strong> iai-Kinect2</strong><br>
-Follow these steps I recommended to use the official Repo [here](https://github.com/code-iai/iai_kinect2/tree/master)
-   
+Follow these steps I recommended to use the official Repo [here](https://github.com/code-iai/iai_kinect2/tree/master) <br>
+#### use my Work Space
