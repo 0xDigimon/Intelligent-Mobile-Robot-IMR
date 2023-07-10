@@ -46,7 +46,7 @@ sudo apt-get install libglfw3-dev
 sudo apt-get install beignet-dev # (find the appropriate one)
 ```
 Then install the python freenect2 lib <br>
-add the following line export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/freenect2/lib/pkgconfig and export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/freenect2/lib to ~/.bashrc <br>
+add the following line ``` export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/freenect2/lib/pkgconfig``` and ```export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/freenect2/lib``` to ```~/.bashrc``` <br>
 <br>
 in libfreenect2 directory
 ```
@@ -74,7 +74,7 @@ rm rtabmap_ros.zip
 cd ~/catkin_ws
 catkin_make
 ```
-if you found any errors with catkin make, make sure you have installed the Suitable package with
+if you found any errors with catkin make, make sure you have installed the compatible package with
 ```
 sudo apt install ros-melodic-yourpackage
 ```
