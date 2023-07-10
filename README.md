@@ -1,6 +1,7 @@
 # Intelligent-Mobile-Robot-IMR
 We've built an autonomous mobile robot entitled IMR ( Intelligent Mobile Robot ). <br>
-We will show How to build an Autonomous car with ROS 
+We will show How to build an Autonomous car with ROS. <br>
+We made this repository of our mobile robot to help people install and configure their robots from the original Linorobot repository without encountering any problems.
 ## Tutorial
 You can read the full tutorial on how to build your Autonomous car on [our website](https://mostafasaleh1.github.io/graduation-project-website/).
 ### Requirements
@@ -21,6 +22,8 @@ You can read the full tutorial on how to build your Autonomous car on [our websi
 #### Structure
 - Any shape compatible with your case 
 ### Installation 
+we used the Linorobot packages [here](https://linorobot.org/) and we thank the Linorobot team to build this package <br>
+these steps like prerequisites 
 make sure you clone the repo from a melodic branch or any alternative branch mentioned in [ROS WIKI](http://wiki.ros.org/Documentation) 
 - Install your Ubuntu [follow these steps](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
 - Install ROS Melodic [follow these steps](http://wiki.ros.org/melodic/Installation/Ubuntu)
@@ -57,4 +60,22 @@ sudo cp ../platform/linux/udev/90-kinect2.rules /etc/udev/rules.d/
 ```
 then install <strong> iai-Kinect2</strong><br>
 Follow these steps I recommended to use the official Repo [here](https://github.com/code-iai/iai_kinect2/tree/master) <br>
-#### use my Work Space
+#### Use my WorkSpace
+copy directories in <strong>v2-our work space</strong> to your workspace <br>
+Follow this steps
+```
+cp "v2-our work space/*" ~/catkin_ws/src
+unzip linorobot.zip
+rm linorobot.zip
+unzip rosserial.zip
+rm rosserial.zip
+unzip rtabmap_ros.zip
+rm rtabmap_ros.zip
+cd ~/catkin_ws
+catkin_make
+```
+if you found any errors with catkin make, make sure you have installed the Suitable package with
+```
+sudo apt install ros-melodic-yourpackage
+```
+#### Finally follow these Tutorial [Linorobot](https://github.com/linorobot/linorobot/wiki) to understand more about How to build your autonmous car 
