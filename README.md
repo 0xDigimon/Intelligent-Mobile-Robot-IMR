@@ -21,6 +21,8 @@ You can read the full tutorial on how to build your Autonomous car on [our websi
 - ROS Melodic
 #### Structure
 - Any shape compatible with your case 
+<hr> 
+
 ### Installation 
 we used the Linorobot packages [here](https://linorobot.org/) and we thank the Linorobot team to build this package <br>
 these steps like prerequisites 
