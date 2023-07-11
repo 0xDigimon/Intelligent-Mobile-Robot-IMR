@@ -29,7 +29,7 @@ make sure you clone the repo from a melodic branch or any alternative branch men
 - Install ROS Melodic [follow these steps](http://wiki.ros.org/melodic/Installation/Ubuntu)
 - Install Arduino use Arduino in my Repo
 - Create workSpace [follow these steps](http://wiki.ros.org/catkin/Tutorials/create_a_workspace)
-- Install Kinect driver
+- Install Kinectv2 driver
 - finally use my workspace 
 ##### Install Arduino 
 copied files in from my Repo to the home directory or install Arduino from the official website and [follow these steps](http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup) to install libraries make sure you install the Rosserial library correctly you can compare it with the one in my files 
@@ -46,7 +46,7 @@ sudo apt-get install libglfw3-dev
 sudo apt-get install beignet-dev # (find the appropriate one)
 ```
 Then install the python freenect2 lib <br>
-add the following line export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/freenect2/lib/pkgconfig and export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/freenect2/lib to ~/.bashrc <br>
+add the following line ``` export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/freenect2/lib/pkgconfig``` and ```export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/freenect2/lib``` to ```~/.bashrc``` <br>
 <br>
 in libfreenect2 directory
 ```
@@ -74,7 +74,7 @@ rm rtabmap_ros.zip
 cd ~/catkin_ws
 catkin_make
 ```
-if you found any errors with catkin make, make sure you have installed the Suitable package with
+if you found any errors with catkin make, make sure you have installed the compatible package with
 ```
 sudo apt install ros-melodic-yourpackage
 ```
