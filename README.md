@@ -79,3 +79,7 @@ if you found any errors with catkin make, make sure you have installed the compa
 sudo apt install ros-melodic-yourpackage
 ```
 #### Finally follow these Tutorial [Linorobot](https://github.com/linorobot/linorobot/wiki) to understand more about How to build your autonmous car 
+<hr> 
+
+# Thanks our Team
+<img src="https://github.com/0xDigimon/Intelligent-Mobile-Robot-IMR/blob/main/Photos/DSC_1875.JPG">
